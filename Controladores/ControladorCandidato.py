@@ -1,8 +1,8 @@
+from Repositorios.RepositorioCandidato import RepositorioCandidato
 from Modelos.Candidato import Candidato
-
 class ControladorCandidato():
     def __init__(self):
-        print("Creando ControladorCandidato")
+        self.repositorioCandidato = RepositorioCandidato()
 
     def index(self):
         print("Listar todos los Candidatos")
@@ -15,9 +15,8 @@ class ControladorCandidato():
         return [unCandidato]
 
     def create(self, infoCandidato):
-        print("Creando un Candidato")
-        elCandidato = Candidato(infoCandidato)
-        return elCandidato.__dict__
+        nuevoCandidato = Candidato(infoCandidato)
+        return self.repositorioCandidato.save(nuevoCandidato)
 
     def show(self, id):
         print("Mostrando un candidato con id:", id)
