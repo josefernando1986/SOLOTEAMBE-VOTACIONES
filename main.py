@@ -58,7 +58,7 @@ def crearPartido():
     return jsonify(json)
 @app.route("/partidos/<string:id>",methods=['GET'])
 def getPartido(id):
-    json=miControladorCandidato.show(id)
+    json=miControladorPartido.show(id)
     return jsonify(json)
 @app.route("/partidos/<string:id>",methods=['PUT'])
 def modificarPartido(id):
