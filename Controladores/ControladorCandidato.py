@@ -1,39 +1,40 @@
+from Repositorios.RepositorioCandidato import RepositorioCandidato
+from Repositorios.RepositorioPartido import RepositorioPartido
 from Modelos.Candidato import Candidato
-
+from Modelos.Partido import Partido
 class ControladorCandidato():
     def __init__(self):
-        print("Creando ControladorCandidato")
+        self.repositorioCandidato = RepositorioCandidato()
+        self.repositorioPartido = RepositorioPartido()
 
     def index(self):
-        print("Listar todos los Candidatos")
-        unCandidato={
-            "_id": "abc123",
-            "cedula": "123",
-            "nombre": "Juan",
-            "apellido": "Perez"
-        }
-        return [unCandidato]
+        return self.repositorioCandidato.findAll()
 
     def create(self, infoCandidato):
-        print("Creando un Candidato")
-        elCandidato = Candidato(infoCandidato)
-        return elCandidato.__dict__
+        nuevoCandidato = Candidato(infoCandidato)
+        return self.repositorioCandidato.save(nuevoCandidato)
 
     def show(self, id):
-        print("Mostrando un candidato con id:", id)
-        elCandidato = {
-            "_id": id,
-            "cedula": "123",
-            "nombre": "Juan",
-            "apellido": "Perez"
-        }
-        return elCandidato
-
-    def update(self, id, infoCandidato):
-        print("Actualizando un candidato con id:", id)
-        elCandidato = Candidato(infoCandidato)
+        elCandidato = Candidato(self.repositorioCandidato.findById(id))
         return elCandidato.__dict__
 
+    def update(self, id, infoCandidato):
+        candidatoActual = Candidato(self.repositorioCandidato.findById(id))
+        candidatoActual.apellido =infoCandidato["apellido"]
+        candidatoActual.nombre = infoCandidato["nombre"]
+        candidatoActual.cedula = infoCandidato["cedula"]
+        candidatoActual.resolucion = infoCandidato["resolucion"]
+        return self.repositorioCandidato.save(candidatoActual)
+
     def delete(self, id):
-        print("Eliminando un candidato con id: ", id)
-        return {"deleted_count" : 1}
+        return self.repositorioCandidato.delete(id)
+
+    """
+    Relacion Partido y Candidato
+    """
+
+    def asignarPartido(self, id, id_partido):
+        candidatoActual = Candidato(self.repositorioCandidato.findById(id))
+        partidoActual = Partido(self.repositorioPartido.findById(id_partido))
+        candidatoActual.partido = partidoActual
+        return self.repositorioCandidato.save(candidatoActual)

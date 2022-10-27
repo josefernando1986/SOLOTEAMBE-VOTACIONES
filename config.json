@@ -1,4 +1,6 @@
 {
   "url-backend": "127.0.0.1",
-  "port": 9999
+  "port": 9999,
+  "data-db-conection": "mongodb+srv://admin-test:123456J@cluster0.qhbgcrc.mongodb.net/be-test-resultados?retryWrites=true&w=majority",
+  "name-db": "be-test-resultados"
 }
