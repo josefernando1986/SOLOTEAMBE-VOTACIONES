@@ -121,6 +121,12 @@ def eliminarResultado(id):
     json=miControladorResultado.delete(id)
     return jsonify(json)
 
+###RELACION ENTRE CANDIDATO Y PARTIDO 1 A MUCHOS
+@app.route("/candidatos/<string:id>/partidos/<string:id_partido>", methods=['PUT'])
+def asignarPartidoACandidato(id, id_partido):
+    json = miControladorCandidato.asignarPartido(id, id_partido)
+    return jsonify(json)
+
 if __name__=='__main__':
     dataConfig = loadFileConfig()
     print("Server running : "+"http://"+dataConfig["url-backend"]+":" + str(dataConfig["port"]))
