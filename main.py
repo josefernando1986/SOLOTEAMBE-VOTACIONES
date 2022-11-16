@@ -14,12 +14,13 @@ def loadFileConfig():
     return data
 
 ###RUTAS
-@app.route("/", methods=['GET'])
-def test():
+"""@app.route("/", methods=['GET'])
+def test1():
     json ={}
     json["message"] = "server running ..."
     return jsonify(json)
 #################################################################################################
+"""
 from Controladores.ControladorCandidato import ControladorCandidato
 miControladorCandidato = ControladorCandidato()
 @app.route("/candidatos",methods=['GET'])
